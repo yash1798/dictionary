@@ -5,7 +5,9 @@ const AppError = require("../utils/errorHandler")
 const Word = require("../models/WordModel")
 
 exports.addWord = asyncHandler(async (req, res) => {
-	const { text } = req.body //Getting the text from body
+	let { text } = req.body //Getting the text from body
+
+	text = text.toLowerCase()
 
 	let word = await Word.findOne({ text }) //finding the word
 
