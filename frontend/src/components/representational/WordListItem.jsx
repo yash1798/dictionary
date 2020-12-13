@@ -1,10 +1,10 @@
 import React, { useState } from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import Paper from "@material-ui/core/Paper"
-import { Typography, Container } from "@material-ui/core"
+
+import { Typography, Container, Paper, makeStyles } from "@material-ui/core"
 
 import WordPage from "../pages/WordPage"
 
+//Styling the components using hook
 const useStyles = makeStyles({
 	lexicalTerm: {
 		fontStyle: "italic",
@@ -23,9 +23,11 @@ const useStyles = makeStyles({
 
 const WordListItem = ({ word }) => {
 	const classes = useStyles()
+	//Initializing the classes
 
 	const [open, setOpen] = useState(false)
 
+	//Handles the Word page dialogue visibility
 	const handleOpen = () => {
 		setOpen(true)
 	}
@@ -37,6 +39,7 @@ const WordListItem = ({ word }) => {
 					<Typography variant="h4" className={classes.text}>
 						{word.text}
 					</Typography>
+					{/* mapping through the response array from the backend to show the info */}
 					{word.entries.map((entry) => (
 						<>
 							<Typography variant="h6" className={classes.lexicalTerm}>
@@ -47,6 +50,7 @@ const WordListItem = ({ word }) => {
 					))}
 				</Container>
 			</Paper>
+			{/* The word page that shows more info about the word */}
 			<WordPage handleClose={(open) => setOpen(open)} open={open} word={word} />
 		</>
 	)

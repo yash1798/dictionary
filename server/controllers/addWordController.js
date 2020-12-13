@@ -5,14 +5,15 @@ const AppError = require("../utils/errorHandler")
 const Word = require("../models/WordModel")
 
 exports.addWord = asyncHandler(async (req, res) => {
-	const { text } = req.body
+	const { text } = req.body //Getting the text from body
 
-	let word = await Word.findOne({ text })
+	let word = await Word.findOne({ text }) //finding the word
 
 	if (word) {
-		throw new AppError(400, "World Already Exists.")
+		throw new AppError(400, "World Already Exists.") //throwing an error if the word is already in the database
 	} else {
 		const data = await fetch(
+			//fetching the word from the Oxford Api
 			`${process.env.OXFORD_API_URL}/${text}?fields=definitions`,
 			{
 				method: "GET",
@@ -26,10 +27,10 @@ exports.addWord = asyncHandler(async (req, res) => {
 		)
 			.then((res) => res.json())
 			.then((response) => {
-				response.results[0].lexicalEntries
+				response.results[0].lexicalEntries //Getting the word info if successfull
 			})
 			.catch(() => {
-				throw new AppError(404, "World Not Found.")
+				throw new AppError(404, "World Not Found.") //Throwing an error if there is no word
 			})
 
 		word = {
@@ -38,6 +39,7 @@ exports.addWord = asyncHandler(async (req, res) => {
 			entries: [],
 		}
 
+		//Extracting the valuable info from the response by running loops
 		data.forEach((entry) => {
 			let a = {
 				lexicalCategory: entry.lexicalCategory.id,
@@ -51,6 +53,6 @@ exports.addWord = asyncHandler(async (req, res) => {
 			word.entries.push(a)
 		})
 		const response = await Word.create(word)
-		res.json({ status: "success", payload: response })
+		res.json({ status: "success", payload: response }) //sending the response
 	}
 })

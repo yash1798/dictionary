@@ -7,6 +7,7 @@ import { fade, makeStyles } from "@material-ui/core/styles"
 import SearchIcon from "@material-ui/icons/Search"
 import { Container } from "@material-ui/core"
 
+//Styling the components using hook
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -16,10 +17,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	title: {
 		flexGrow: 1,
-		// display: "none",
-		// [theme.breakpoints.up("sm")]: {
-		// 	display: "block",
-		// },
 	},
 	search: {
 		position: "relative",
@@ -49,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	inputInput: {
 		padding: theme.spacing(1, 1, 1, 0),
-		// vertical padding + font size from searchIcon
 		paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
 		transition: theme.transitions.create("width"),
 		width: "100%",
@@ -64,9 +60,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchAppBar({ handleTerm }) {
 	const classes = useStyles()
+	//Initializing the classes
 
 	const [term, setTerm] = useState("")
 
+	//Getting the term through prop tunneling
 	useEffect(() => {
 		handleTerm(term)
 	}, [term, handleTerm])
@@ -89,7 +87,6 @@ export default function SearchAppBar({ handleTerm }) {
 									root: classes.inputRoot,
 									input: classes.inputInput,
 								}}
-								inputProps={{ "aria-label": "search" }}
 								onChange={(e) => setTerm(e.target.value)}
 							/>
 						</div>

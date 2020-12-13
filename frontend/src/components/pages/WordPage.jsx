@@ -1,16 +1,20 @@
 import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
-import Dialog from "@material-ui/core/Dialog"
-import Divider from "@material-ui/core/Divider"
-import AppBar from "@material-ui/core/AppBar"
-import Toolbar from "@material-ui/core/Toolbar"
-import IconButton from "@material-ui/core/IconButton"
-import Typography from "@material-ui/core/Typography"
-import CloseIcon from "@material-ui/icons/Close"
+import {
+	Dialog,
+	Divider,
+	AppBar,
+	Toolbar,
+	IconButton,
+	Typography,
+	Slide,
+	Container,
+	Grid,
+} from "@material-ui/core"
+import { Close } from "@material-ui/icons"
 import Bullets from "@material-ui/icons/Brightness1"
-import Slide from "@material-ui/core/Slide"
-import { Container, Grid } from "@material-ui/core"
 
+//Styling the components using hook
 const useStyles = makeStyles((theme) => ({
 	appBar: {
 		position: "relative",
@@ -33,8 +37,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function FullScreenDialog({ open, handleClose, word }) {
 	const classes = useStyles()
+	//Initializing the classes
 
 	return (
+		// This is basically a dialogue which will open when clicked
 		<Dialog fullScreen open={open} TransitionComponent={Transition}>
 			<AppBar className={classes.appBar}>
 				<Container>
@@ -43,7 +49,7 @@ export default function FullScreenDialog({ open, handleClose, word }) {
 							{word.text}
 						</Typography>
 						<IconButton edge="start" color="inherit" aria-label="close">
-							<CloseIcon onClick={() => handleClose(false)} />
+							<Close onClick={() => handleClose(false)} />
 						</IconButton>
 					</Toolbar>
 				</Container>

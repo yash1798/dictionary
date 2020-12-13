@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react"
-// import { Typography, Grid, Container } from "@material-ui/core"
+
 import Header from "../representational/Header"
 import WordList from "../representational/WordList"
 import { makeStyles } from "@material-ui/core/styles"
 import AddWord from "../representational/AddWord"
 
+//Styling the components using hook
 const useStyles = makeStyles((theme) => ({
 	homepage: {
-		// backgroundColor: theme.palette.primary.main,
 		position: "relative",
 		minHeight: "100vh",
 	},
@@ -21,12 +21,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Homepage = () => {
 	const classes = useStyles()
+	//Initializing the classes
 
 	const [wordArray, setWordArray] = useState([])
 	const [wordList, setWordList] = useState([])
 	const [flag, setFlag] = useState(false)
 	const [term, setTerm] = useState("")
 
+	//Getting the array list stored in mongoDB database
 	useEffect(() => {
 		const fetchWords = async () => {
 			const data = await fetch(`${process.env.REACT_APP_API_URL}/getAllWords`, {
@@ -39,6 +41,7 @@ const Homepage = () => {
 		fetchWords()
 	}, [flag])
 
+	//filter the array based on the search term
 	useEffect(() => {
 		if (!term) {
 			setWordList(wordArray)

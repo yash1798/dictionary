@@ -1,13 +1,16 @@
 import React, { useState } from "react"
-import Button from "@material-ui/core/Button"
-import TextField from "@material-ui/core/TextField"
-import Dialog from "@material-ui/core/Dialog"
-import DialogActions from "@material-ui/core/DialogActions"
-import DialogContent from "@material-ui/core/DialogContent"
-import DialogContentText from "@material-ui/core/DialogContentText"
-import DialogTitle from "@material-ui/core/DialogTitle"
-import IconButton from "@material-ui/core/IconButton"
-import Add from "@material-ui/icons/Add"
+import {
+	Button,
+	TextField,
+	Dialog,
+	DialogActions,
+	DialogContentText,
+	DialogContent,
+	DialogTitle,
+	IconButton,
+} from "@material-ui/core"
+
+import { Add } from "@material-ui/icons"
 
 export default function AddWord({ handleReload }) {
 	const [open, setOpen] = React.useState(false)
@@ -15,15 +18,18 @@ export default function AddWord({ handleReload }) {
 	const [word, setWord] = useState("")
 	const [error, setError] = useState("")
 
-	const handleClickOpen = () => {
+	//Handles the add word dialogue
+	const handleOpen = () => {
 		setOpen(true)
 	}
 
+	//Handles the add word dialogue
 	const handleClose = () => {
 		setOpen(false)
 		setError("")
 	}
 
+	//action when you have asked to add a word
 	const handleSubmit = async () => {
 		const data = await fetch(`${process.env.REACT_APP_API_URL}/addWord`, {
 			method: "POST",
@@ -34,6 +40,7 @@ export default function AddWord({ handleReload }) {
 			body: JSON.stringify({ text: word }),
 		}).then((res) => res.json())
 
+		//checking the response
 		if (data.status === "success") {
 			setOpen(false)
 			handleReload(true)
@@ -47,13 +54,17 @@ export default function AddWord({ handleReload }) {
 
 	return (
 		<>
-			<IconButton color="primary" onClick={handleClickOpen}>
-				<Add />
+			<IconButton
+				color="primary"
+				onClick={handleOpen}
+				style={{ backgroundColor: "#720D5d" }}
+			>
+				<Add fontSize="large" style={{ color: "white" }} />
 			</IconButton>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle id="form-dialog-title">Add a new Word</DialogTitle>
 				<DialogContent>
-					<DialogContentText style={{ color: "red" }}>
+					<DialogContentText style={{ color: "#E30425" }}>
 						{error}
 					</DialogContentText>
 					<TextField
