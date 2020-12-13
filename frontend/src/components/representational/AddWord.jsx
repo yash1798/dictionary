@@ -81,11 +81,7 @@ export default function AddWord({ handleReload }) {
 			<Backdrop className={classes.backdrop} open={bd}>
 				<CircularProgress color="inherit" />
 			</Backdrop>
-			<Dialog
-				open={open}
-				onClose={handleClose}
-				style={{ top: "1rem", position: "fixed" }}
-			>
+			<Dialog open={open} onClose={handleClose} style={{ position: "fixed" }}>
 				<DialogTitle id="form-dialog-title">Add a new Word</DialogTitle>
 				<DialogContent>
 					<DialogContentText style={{ color: "#E30425" }}>

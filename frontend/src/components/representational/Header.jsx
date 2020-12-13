@@ -87,7 +87,7 @@ export default function SearchAppBar({ handleTerm }) {
 									root: classes.inputRoot,
 									input: classes.inputInput,
 								}}
-								onChange={(e) => setTerm(e.target.value)}
+								onChange={(e) => setTerm(e.target.value.toLowerCase())}
 							/>
 						</div>
 					</Toolbar>
