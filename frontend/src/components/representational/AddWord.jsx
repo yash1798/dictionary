@@ -84,7 +84,7 @@ export default function AddWord({ handleReload }) {
 			<Dialog
 				open={open}
 				onClose={handleClose}
-				style={{ top: "2rem", position: "fixed" }}
+				style={{ top: "1rem", position: "fixed" }}
 			>
 				<DialogTitle id="form-dialog-title">Add a new Word</DialogTitle>
 				<DialogContent>
