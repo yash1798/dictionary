@@ -17,7 +17,9 @@ const WordList = ({ wordArray }) => {
 	return (
 		<div className={classes.root}>
 			{wordArray.map((word) => (
-				<WordListItem word={word} />
+				<>
+					<WordListItem word={word} />
+				</>
 			))}
 		</div>
 	)

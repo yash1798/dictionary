@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField"
 import Dialog from "@material-ui/core/Dialog"
 import DialogActions from "@material-ui/core/DialogActions"
 import DialogContent from "@material-ui/core/DialogContent"
-// import DialogContentText from "@material-ui/core/DialogContentText"
+import DialogContentText from "@material-ui/core/DialogContentText"
 import DialogTitle from "@material-ui/core/DialogTitle"
 import IconButton from "@material-ui/core/IconButton"
 import Add from "@material-ui/icons/Add"
@@ -13,6 +13,7 @@ export default function AddWord({ handleReload }) {
 	const [open, setOpen] = React.useState(false)
 
 	const [word, setWord] = useState("")
+	const [error, setError] = useState("")
 
 	const handleClickOpen = () => {
 		setOpen(true)
@@ -20,6 +21,7 @@ export default function AddWord({ handleReload }) {
 
 	const handleClose = () => {
 		setOpen(false)
+		setError("")
 	}
 
 	const handleSubmit = async () => {
@@ -35,18 +37,25 @@ export default function AddWord({ handleReload }) {
 		if (data.status === "success") {
 			setOpen(false)
 			handleReload(true)
+		} else if (data.status === "fail") {
+			setError(data.payload)
+			setTimeout(() => {
+				setError("")
+			}, 5000)
 		}
 	}
 
 	return (
-		<div>
+		<>
 			<IconButton color="primary" onClick={handleClickOpen}>
 				<Add />
 			</IconButton>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle id="form-dialog-title">Add a new Word</DialogTitle>
 				<DialogContent>
-					{/* <DialogContentText></DialogContentText> */}
+					<DialogContentText style={{ color: "red" }}>
+						{error}
+					</DialogContentText>
 					<TextField
 						autoFocus
 						margin="dense"
@@ -66,6 +75,6 @@ export default function AddWord({ handleReload }) {
 					</Button>
 				</DialogActions>
 			</Dialog>
-		</div>
+		</>
 	)
 }

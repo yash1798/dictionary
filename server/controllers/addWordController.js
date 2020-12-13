@@ -25,7 +25,12 @@ exports.addWord = asyncHandler(async (req, res) => {
 			}
 		)
 			.then((res) => res.json())
-			.then((response) => response.results[0].lexicalEntries)
+			.then((response) => {
+				response.results[0].lexicalEntries
+			})
+			.catch(() => {
+				throw new AppError(404, "World Not Found.")
+			})
 
 		word = {
 			text,

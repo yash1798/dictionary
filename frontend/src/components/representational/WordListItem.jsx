@@ -1,7 +1,9 @@
-import React from "react"
+import React, { useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Paper from "@material-ui/core/Paper"
 import { Typography, Container } from "@material-ui/core"
+
+import WordPage from "../pages/WordPage"
 
 const useStyles = makeStyles({
 	lexicalTerm: {
@@ -12,6 +14,7 @@ const useStyles = makeStyles({
 	},
 	paper: {
 		padding: "1.5rem 0",
+		cursor: "pointer",
 	},
 	text: {
 		fontWeight: "700",
@@ -20,9 +23,16 @@ const useStyles = makeStyles({
 
 const WordListItem = ({ word }) => {
 	const classes = useStyles()
+
+	const [open, setOpen] = useState(false)
+
+	const handleOpen = () => {
+		setOpen(true)
+	}
+
 	return (
 		<>
-			<Paper elevation={2} className={classes.paper}>
+			<Paper onClick={handleOpen} elevation={2} className={classes.paper}>
 				<Container maxWidth="md">
 					<Typography variant="h4" className={classes.text}>
 						{word.text}
@@ -37,6 +47,7 @@ const WordListItem = ({ word }) => {
 					))}
 				</Container>
 			</Paper>
+			<WordPage handleClose={(open) => setOpen(open)} open={open} word={word} />
 		</>
 	)
 }
