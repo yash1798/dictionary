@@ -26,9 +26,9 @@ exports.addWord = asyncHandler(async (req, res) => {
 			}
 		)
 			.then((res) => res.json())
-			.then((response) => {
-				response.results[0].lexicalEntries //Getting the word info if successfull
-			})
+			.then(
+				(response) => response.results[0].lexicalEntries //Getting the word info if successfull
+			)
 			.catch(() => {
 				throw new AppError(404, "World Not Found.") //Throwing an error if there is no word
 			})

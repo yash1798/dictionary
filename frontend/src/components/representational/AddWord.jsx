@@ -8,15 +8,28 @@ import {
 	DialogContent,
 	DialogTitle,
 	IconButton,
+	CircularProgress,
+	Backdrop,
+	makeStyles,
 } from "@material-ui/core"
 
 import { Add } from "@material-ui/icons"
 
+const useStyles = makeStyles((theme) => ({
+	backdrop: {
+		zIndex: "11 !important",
+		color: "#fff",
+	},
+}))
+
 export default function AddWord({ handleReload }) {
-	const [open, setOpen] = React.useState(false)
+	const classes = useStyles()
+
+	const [open, setOpen] = useState(false)
 
 	const [word, setWord] = useState("")
 	const [error, setError] = useState("")
+	const [bd, setBD] = useState(false)
 
 	//Handles the add word dialogue
 	const handleOpen = () => {
@@ -31,6 +44,8 @@ export default function AddWord({ handleReload }) {
 
 	//action when you have asked to add a word
 	const handleSubmit = async () => {
+		setBD(true)
+
 		const data = await fetch(`${process.env.REACT_APP_API_URL}/addWord`, {
 			method: "POST",
 			headers: {
@@ -39,6 +54,8 @@ export default function AddWord({ handleReload }) {
 			},
 			body: JSON.stringify({ text: word }),
 		}).then((res) => res.json())
+
+		setBD(false)
 
 		//checking the response
 		if (data.status === "success") {
@@ -56,12 +73,19 @@ export default function AddWord({ handleReload }) {
 		<>
 			<IconButton
 				color="primary"
-				onClick={handleOpen}
+				onClick={() => handleOpen()}
 				style={{ backgroundColor: "#720D5d" }}
 			>
 				<Add fontSize="large" style={{ color: "white" }} />
 			</IconButton>
-			<Dialog open={open} onClose={handleClose}>
+			<Backdrop className={classes.backdrop} open={bd}>
+				<CircularProgress color="inherit" />
+			</Backdrop>
+			<Dialog
+				open={open}
+				onClose={handleClose}
+				style={{ zIndex: "10 !important", position: "absolute" }}
+			>
 				<DialogTitle id="form-dialog-title">Add a new Word</DialogTitle>
 				<DialogContent>
 					<DialogContentText style={{ color: "#E30425" }}>

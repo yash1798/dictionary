@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { Fragment, useState } from "react"
 
 import { Typography, Container, Paper, makeStyles } from "@material-ui/core"
 
@@ -40,13 +40,13 @@ const WordListItem = ({ word }) => {
 						{word.text}
 					</Typography>
 					{/* mapping through the response array from the backend to show the info */}
-					{word.entries.map((entry) => (
-						<>
+					{word.entries.map((entry, index) => (
+						<Fragment key={index}>
 							<Typography variant="h6" className={classes.lexicalTerm}>
 								({entry.lexicalCategory})
 							</Typography>
 							<Typography variant="h5">{entry.definitions[0]}</Typography>
-						</>
+						</Fragment>
 					))}
 				</Container>
 			</Paper>

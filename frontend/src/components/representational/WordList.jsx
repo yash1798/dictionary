@@ -19,10 +19,8 @@ const WordList = ({ wordArray }) => {
 	return (
 		<div className={classes.root}>
 			{/* mapping through the word array */}
-			{wordArray.map((word) => (
-				<>
-					<WordListItem word={word} />
-				</>
+			{wordArray.map((word, index) => (
+				<WordListItem key={index} word={word} />
 			))}
 		</div>
 	)

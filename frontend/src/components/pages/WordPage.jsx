@@ -48,22 +48,27 @@ export default function FullScreenDialog({ open, handleClose, word }) {
 						<Typography variant="h5" className={classes.title}>
 							{word.text}
 						</Typography>
-						<IconButton edge="start" color="inherit" aria-label="close">
-							<Close onClick={() => handleClose(false)} />
+						<IconButton
+							onClick={() => handleClose(false)}
+							edge="start"
+							color="inherit"
+							aria-label="close"
+						>
+							<Close />
 						</IconButton>
 					</Toolbar>
 				</Container>
 			</AppBar>
 			<Container>
-				{word.entries.map((entry) => (
-					<Grid container direction="column" spacing={5}>
+				{word.entries.map((entry, index) => (
+					<Grid container key={index} direction="column" spacing={5}>
 						<Grid item>
 							<Typography className={classes.lexical}>
 								({entry.lexicalCategory})
 							</Typography>
 							<Grid container item direction="column" spacing={5}>
-								{entry.definitions.map((definition) => (
-									<Grid item>
+								{entry.definitions.map((definition, index) => (
+									<Grid item key={index}>
 										<Typography variant="h5">
 											<Bullets style={{ fontSize: 10 }} /> {definition}
 										</Typography>
