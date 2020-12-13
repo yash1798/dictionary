@@ -31,7 +31,7 @@ const Homepage = () => {
 	//Getting the array list stored in mongoDB database
 	useEffect(() => {
 		const fetchWords = async () => {
-			const data = await fetch(`${process.env.REACT_APP_API_URL}/getAllWords`, {
+			const data = await fetch(`/api/getAllWords`, {
 				method: "GET",
 			}).then((res) => res.json())
 

@@ -24,8 +24,8 @@ if (process.env.MODE === "DEVELOPMENT") {
 app.use(bodyParser.json()) //body parser for json
 app.use(cors()) //CORS for development
 
-app.use("/", addWordRoute) //Addition Route
-app.use("/", getWordsRoute) //Serving Route
+app.use("/api", addWordRoute) //Addition Route
+app.use("/api", getWordsRoute) //Serving Route
 
 app.use(errorController)
 

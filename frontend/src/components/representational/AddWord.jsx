@@ -46,7 +46,7 @@ export default function AddWord({ handleReload }) {
 	const handleSubmit = async () => {
 		setBD(true)
 
-		const data = await fetch(`${process.env.REACT_APP_API_URL}/addWord`, {
+		const data = await fetch(`/api/addWord`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
