@@ -1,10 +1,15 @@
 const asyncHandler = require("express-async-handler")
 
-const AppError = require("../utils/errorHandler")
 const Word = require("../models/WordModel")
 
 exports.getAllWords = asyncHandler(async (req, res) => {
-	let wordsArray = await Word.find() //getting all the words from the database
-
+	const { search } = req.query
+	if (!search) {
+		var wordsArray = await Word.find()
+	} else {
+		wordsArray = await Word.find({
+			text: { $regex: `${search}`, $options: "i" },
+		}) //getting all the words from the database
+	}
 	res.json(wordsArray) //serving the words
 })

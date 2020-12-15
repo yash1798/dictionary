@@ -31,7 +31,7 @@ const Homepage = () => {
 	//Getting the array list stored in mongoDB database
 	useEffect(() => {
 		const fetchWords = async () => {
-			const data = await fetch(`http://localhost:5000/api/getAllWords`, {
+			const data = await fetch(`/api/getAllWords`, {
 				method: "GET",
 			}).then((res) => res.json())
 
@@ -47,12 +47,9 @@ const Homepage = () => {
 			setWordList(wordArray)
 		} else {
 			const fetchWordList = async () => {
-				const wordArr = await fetch(
-					`http://localhost:5000/api/getAllWords?search=${term}`,
-					{
-						method: "GET",
-					}
-				).then((res) => res.json())
+				const wordArr = await fetch(`/api/getAllWords?search=${term}`, {
+					method: "GET",
+				}).then((res) => res.json())
 
 				setWordList(wordArr)
 			}
